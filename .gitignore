@@ -1,2 +1,12 @@
-/test/
-/data/raw/
+*.pyc
+*__pycache__
+
+*test/
+
+/data/raw/*.md
+/data/raw/*.txt
+/data/raw/*.docx
+/data/raw/wiki*
+
+/data/all_raw/
+/data/processed/*.jsonl
