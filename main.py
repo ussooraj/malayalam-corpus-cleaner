@@ -40,7 +40,7 @@ def load_config(config_path: str) -> Dict:
 
 def main():
     """
-    Main function to run the corpus cleaning cleaning_pipeline.
+    Main function to run the corpus cleaning pipeline.
     """
     setup_logging()
     
@@ -54,6 +54,7 @@ def main():
     raw_data_path = path_config['raw_data_dir']
     processed_data_path = path_config['processed_data_dir']
     output_filename = path_config['output_filename']
+    discarded_filename = path_config['discarded_filename']
     
     logging.info("--- Starting Corpus Cleaning Toolkit ---")
 
@@ -64,10 +65,15 @@ def main():
         logging.warning("No documents were found. Exiting.")
         return
 
-    cleaned_documents = cleaning_pipeline(documents, config)
+    cleaned_documents, discarded_documents = cleaning_pipeline(documents, config)
 
     output_file_path = Path(processed_data_path) / output_filename
     save_to_jsonl(cleaned_documents, output_file_path)
+
+    if discarded_documents:
+        discarded_file_path = Path(processed_data_path) / discarded_filename
+        logging.info(f"Saving {len(discarded_documents)} discarded documents to {discarded_file_path} for review.")
+        save_to_jsonl(discarded_documents, discarded_file_path)
 
     logging.info(f"--- Verification: Inspecting first 3 of {len(cleaned_documents)} final documents ---")
     for doc in cleaned_documents[:3]:

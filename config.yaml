@@ -5,6 +5,7 @@ paths:
   raw_data_dir: data/raw
   processed_data_dir: data/processed
   output_filename: cleaned_malayalam_corpus.jsonl
+  discarded_filename: discarded_documents.jsonl
 
 # Settings for the quality filtering
 filters:
