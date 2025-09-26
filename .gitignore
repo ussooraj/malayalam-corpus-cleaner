@@ -10,3 +10,5 @@
 
 /data/all_raw/
 /data/processed/*.jsonl
+
+*.log

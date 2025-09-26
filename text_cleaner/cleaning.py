@@ -62,7 +62,7 @@ def filter_by_ratio(text: str, threshold: float = 0.8) -> bool:
     ratio = malayalam_chars / total_chars
     return ratio >= threshold
 
-def filter_by_word_count(text: str, min_words: int = 5) -> bool:
+def filter_by_count(text: str, min_words: int = 5) -> bool:
     """
     Checks if the text meets a minimum word count.
 
@@ -76,7 +76,7 @@ def filter_by_word_count(text: str, min_words: int = 5) -> bool:
     word_count = len(text.split())
     return word_count >= min_words
 
-def strict_mal_chars(text: str) -> str:
+def strict_mal_char(text: str) -> str:
     """
     Removes all characters that are not in the Malayalam Unicode range,
     digits, or basic punctuation. This is an aggressive cleaning step.

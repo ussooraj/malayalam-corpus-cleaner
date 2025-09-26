@@ -1,0 +1,16 @@
+# --- Configuration ---
+
+# File paths for input and output
+paths:
+  raw_data_dir: data/raw
+  processed_data_dir: data/processed
+  output_filename: cleaned_malayalam_corpus.jsonl
+
+# Settings for the quality filtering
+filters:
+  malayalam_ratio_threshold: 0.8
+  min_word_count: 5
+
+# Settings for specific cleaning functions
+cleaning:
+  use_aggressive_char_removal: false
