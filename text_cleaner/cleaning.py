@@ -8,6 +8,15 @@ def remove_tags(text: str) -> str:
     """
     return re.sub(r'<[^>]*?>', '', text)
 
+def remove_wiki_markup(text: str) -> str:
+    """
+    Removes common wiki markup, like [[Image:...]] or ==Heading==.
+    """
+    text = re.sub(r'\[\[.*?\]\]', '', text)
+    text = re.sub(r'==([^=]+)==', r'\1', text)
+    text = re.sub(r'=([^=]+)=', r'\1', text)
+    return text
+
 def remove_extra_whitespace(text: str) -> str:
     """
     Removes extra whitespace, including multiple spaces, tabs, and newlines.

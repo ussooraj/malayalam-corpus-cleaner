@@ -15,6 +15,9 @@ def setup_logging():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
 
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
     console_handler = logging.StreamHandler()
     console_formatter = logging.Formatter('%(levelname)s: %(message)s')
     console_handler.setFormatter(console_formatter)
@@ -49,6 +52,7 @@ def main():
     args = parser.parse_args()
     
     config = load_config(args.config)
+    logging.info(f"config.yaml loaded successfully.\n")
     path_config = config['paths']
     
     raw_data_path = path_config['raw_data_dir']
@@ -59,7 +63,7 @@ def main():
     logging.info("--- Starting Corpus Cleaning Toolkit ---")
 
     documents = ingest_from_dir(raw_data_path)
-    logging.info(f"Found {len(documents)} documents to process.")
+    logging.info(f"Found {len(documents)} documents to process.\n")
 
     if not documents:
         logging.warning("No documents were found. Exiting.")
@@ -68,6 +72,7 @@ def main():
     cleaned_documents, discarded_documents = cleaning_pipeline(documents, config)
 
     output_file_path = Path(processed_data_path) / output_filename
+    logging.info(f"Saving {len(cleaned_documents)} cleaned documents to {output_file_path}")
     save_to_jsonl(cleaned_documents, output_file_path)
 
     if discarded_documents:

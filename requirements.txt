@@ -2,3 +2,11 @@ beautifulsoup4
 python-docx
 Markdown
 PyYAML
+
+google-generativeai
+sentence-splitter
+indic-nlp-library 
+
+transformers
+accelerate
+bitsandbytes
