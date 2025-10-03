@@ -29,7 +29,9 @@ def _extract_docs(text: str, file_path: Path) -> List[Dict[str, str]]:
                     'id': doc_id,
                     'url': doc_url,
                     'title': doc_title,
-                    'text': doc_text
+                    'text': doc_text,
+                    'filename': file_path.name,
+                    'filepath': str(file_path.resolve())
                 })
     else:
         full_text = soup.get_text(strip=True)
@@ -38,7 +40,9 @@ def _extract_docs(text: str, file_path: Path) -> List[Dict[str, str]]:
                 'id': file_path.name,
                 'url': str(file_path.resolve()),
                 'title': file_path.stem,
-                'text': full_text
+                'text': full_text,
+                'filename': file_path.name,
+                'filepath': str(file_path.resolve())
             })
             
     return extracted_documents
@@ -74,6 +78,8 @@ def ingest_from_dir(directory_path: Union[str, Path]) -> List[Dict[str, str]]:
     """
     Ingests and parses all supported files from a directory, handling both
     structured (<doc>) and unstructured (plain text) files.
+    
+    Returns documents with full metadata including source file information.
     """
     directory_path = Path(directory_path)
     if not directory_path.is_dir():
