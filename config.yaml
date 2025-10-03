@@ -1,4 +1,6 @@
-# --- Configuration ---
+# ==========================================
+# Malayalam Corpus Cleaner - Configuration
+# ==========================================
 
 # File paths for input and output
 paths:
@@ -7,30 +9,36 @@ paths:
   output_filename: cleaned_malayalam_corpus.jsonl
   discarded_filename: discarded_documents.jsonl
 
-# Settings for the quality filtering
+# Settings for quality filtering
 filters:
   malayalam_ratio_threshold: 0.8
   min_word_count: 5
 
-# Settings for specific cleaning functions
+# Settings for text cleaning functions
 cleaning:
   use_aggressive_char_removal: false
 
-# Settings for LLM based quality filtering
+# Settings for Semantic Chunking
+chunking:
+  enabled: true
+  target_size: 5000 # lower the value if n_ctx is lowered
+
+# Settings for LLM-based quality scoring
 llm_scorer:
   enabled: true
-  provider: "api" # 'api' or 'local'
+  provider: "local"  # Options: 'api' or 'local'
   score_threshold: 5
-  chunk_target_size: 16000 # should be lower than n_ctx
 
+  # Google Gemini API Configuration
   api_config:
     model_name: "models/gemini-2.5-flash-preview-09-2025"
     max_retries: 3
     retry_delay_seconds: 5
 
+  # Local GGUF Model Configuration
   local_config:
     model_repo_id: "google/gemma-3-4b-it-qat-q4_0-gguf"
     model_filename: "gemma-3-4b-it-q4_0.gguf"
     n_gpu_layers: -1
     main_gpu: 0
-    n_ctx: 16384  # lower the value if VRAM is limited
+    n_ctx: 22000  # lower the value if VRAM is limited
